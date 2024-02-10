@@ -35,15 +35,17 @@ export class UsersService {
     cursor?: Prisma.UserWhereUniqueInput;
     where?: Prisma.UserWhereInput;
     orderBy?: Prisma.UserOrderByWithRelationInput;
-  }): Promise<User[]> {
+  }): Promise<UserDTO[]> {
     const { skip, take, cursor, where, orderBy } = params;
-    return this.prisma.user.findMany({
+    const users = await this.prisma.user.findMany({
       skip,
       take,
       cursor,
       where,
       orderBy,
     });
+
+    return users?.map(this.entityToDTO);
   }
 
   async createUser(data: Prisma.UserCreateInput): Promise<User> {
