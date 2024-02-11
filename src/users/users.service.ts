@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { User, Prisma } from '@prisma/client';
+import { User, Prisma, Role } from '@prisma/client';
 import { UserDTO } from './dtos/user.dto';
 
 @Injectable()
@@ -27,6 +27,19 @@ export class UsersService {
     return this.prisma.user.findUnique({
       where: userWhereUniqueInput,
     });
+  }
+
+  async roles(
+    userWhereUniqueInput: Prisma.UserWhereUniqueInput,
+  ): Promise<Role[] | null> {
+    const user = await this.prisma.user.findUnique({
+      where: userWhereUniqueInput,
+      include: {
+        roles: true,
+      },
+    });
+
+    return user?.roles;
   }
 
   async users(params: {
