@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserDTO } from 'src/users/dtos/user.dto';
 import { UsersService } from 'src/users/users.service';
-import * as crypto from 'crypto';
+import { hashPassword } from './utils/hashPassword';
 
 @Injectable()
 export class AuthService {
@@ -12,10 +12,7 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, password: string): Promise<UserDTO | null> {
-    const passwordHash = crypto
-      .createHash('sha256')
-      .update(password)
-      .digest('hex');
+    const passwordHash = hashPassword(password);
 
     return this.usersService.userForAuth({ email, password: passwordHash });
   }
