@@ -18,7 +18,7 @@ export class UsersService {
 
     const user = await this.prisma.user.findUnique({ where });
 
-    return user.password === password ? this.entityToDTO(user) : null;
+    return user?.password === password ? this.entityToDTO(user) : null;
   }
 
   async user(
