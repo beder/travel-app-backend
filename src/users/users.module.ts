@@ -3,7 +3,7 @@ import { UsersService } from './users.service';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { UsersController } from './users.controller';
 import { APP_GUARD } from '@nestjs/core';
-import { JwtAuthGuard } from 'src/auth/jwt.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Module({
   exports: [UsersService],
