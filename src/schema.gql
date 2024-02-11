@@ -18,15 +18,38 @@ type Session {
   accessToken: String!
 }
 
+type Moods {
+  nature: Int!
+  relax: Int!
+  history: Int!
+  culture: Int!
+  party: Int!
+}
+
+type Travel {
+  id: String!
+  isPublic: Boolean!
+  slug: String!
+  name: String!
+  description: String!
+  numberOfDays: Int!
+  moods: Moods!
+}
+
 type Query {
   user(id: String!): User
   users: [User!]!
   me: User
+  travels: [Travel!]!
+  travel(id: String!): Travel!
 }
 
 type Mutation {
   login(input: LoginInput!): Session
   createUser(input: CreateUserInput!): User
+  createTravel(createTravelInput: CreateTravelInput!): Travel!
+  updateTravel(updateTravelInput: UpdateTravelInput!): Travel!
+  removeTravel(id: String!): Travel!
 }
 
 input LoginInput {
@@ -38,4 +61,31 @@ input CreateUserInput {
   email: String!
   password: String!
   roles: [String!]!
+}
+
+input CreateTravelInput {
+  isPublic: Boolean!
+  slug: String!
+  name: String!
+  description: String!
+  numberOfDays: Int!
+  moods: MoodsInput!
+}
+
+input MoodsInput {
+  nature: Int!
+  relax: Int!
+  history: Int!
+  culture: Int!
+  party: Int!
+}
+
+input UpdateTravelInput {
+  isPublic: Boolean
+  slug: String
+  name: String
+  description: String
+  numberOfDays: Int
+  moods: MoodsInput
+  id: String!
 }
