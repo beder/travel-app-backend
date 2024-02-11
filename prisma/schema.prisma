@@ -26,18 +26,18 @@ model Role {
 }
 
 model Travel {
-  id           String   @id @default(cuid())
+  id           String  @id @default(cuid())
   isPublic     Boolean
-  slug         String   @unique
-  name         String   @unique
+  slug         String  @unique
+  name         String  @unique
   description  String
   numberOfDays Int
-  moods        String[]
+  moods        Json
 
-  tours Tours[]
+  tours Tour[]
 }
 
-model Tours {
+model Tour {
   id           String   @id @default(cuid())
   travelId     String
   name         String   @unique
