@@ -1,7 +1,7 @@
 import { Args, Field, InputType, Mutation, Resolver } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 import { Session } from './models/session.model';
-import { BadRequestException, UnauthorizedException } from '@nestjs/common';
+import { UnauthorizedException } from '@nestjs/common';
 
 @InputType()
 class LoginInput {

@@ -26,9 +26,16 @@ type Query {
 
 type Mutation {
   login(input: LoginInput!): Session
+  createUser(input: CreateUserInput!): User
 }
 
 input LoginInput {
   email: String!
   password: String!
+}
+
+input CreateUserInput {
+  email: String!
+  password: String!
+  roles: [String!]!
 }

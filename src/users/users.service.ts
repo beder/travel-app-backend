@@ -29,7 +29,13 @@ export class UsersService {
     });
   }
 
-  async roles(
+  async roles(where: Prisma.RoleWhereInput): Promise<Role[]> {
+    return this.prisma.role.findMany({
+      where,
+    });
+  }
+
+  async rolesByUser(
     userWhereUniqueInput: Prisma.UserWhereUniqueInput,
   ): Promise<Role[] | null> {
     const user = await this.prisma.user.findUnique({
