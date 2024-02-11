@@ -7,8 +7,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class TravelsService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createTravelInput: CreateTravelInput) {
-    const travel = await this.prisma.travel.create({
+  create(createTravelInput: CreateTravelInput) {
+    return this.prisma.travel.create({
       data: {
         ...createTravelInput,
         ...(createTravelInput.moods && {
@@ -16,8 +16,6 @@ export class TravelsService {
         }),
       },
     });
-
-    return travel;
   }
 
   findAll() {
@@ -41,6 +39,8 @@ export class TravelsService {
   }
 
   remove(id: string) {
-    return `This action removes a #${id} travel`;
+    return this.prisma.travel.delete({
+      where: { id },
+    });
   }
 }
