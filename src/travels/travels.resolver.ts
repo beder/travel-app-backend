@@ -21,7 +21,7 @@ export class TravelsResolver {
   }
 
   @Query(() => Travel, { name: 'travel' })
-  findOne(@Args('id') id: string) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.travelsService.findOne(id);
   }
 
@@ -33,7 +33,7 @@ export class TravelsResolver {
   }
 
   @Mutation(() => Travel)
-  removeTravel(@Args('id') id: string) {
+  removeTravel(@Args('id', { type: () => String }) id: string) {
     return this.travelsService.remove(id);
   }
 }

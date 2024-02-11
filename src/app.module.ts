@@ -7,6 +7,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { TravelsModule } from './travels/travels.module';
+import { ToursModule } from './tours/tours.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { TravelsModule } from './travels/travels.module';
       buildSchemaOptions: { dateScalarMode: 'timestamp' },
     }),
     TravelsModule,
+    ToursModule,
   ],
 })
 export class AppModule {}

@@ -36,12 +36,27 @@ type Travel {
   moods: Moods!
 }
 
+type Tour {
+  id: String!
+  name: String!
+  startingDate: Timestamp!
+  endingDate: Timestamp!
+  price: Int!
+}
+
+"""
+`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
+"""
+scalar Timestamp
+
 type Query {
   user(id: String!): User
   users: [User!]!
   me: User
   travels: [Travel!]!
   travel(id: String!): Travel!
+  tours: [Tour!]!
+  tour(id: String!): Tour!
 }
 
 type Mutation {
@@ -50,6 +65,9 @@ type Mutation {
   createTravel(createTravelInput: CreateTravelInput!): Travel!
   updateTravel(updateTravelInput: UpdateTravelInput!): Travel!
   removeTravel(id: String!): Travel!
+  createTour(travelId: String!, createTourInput: CreateTourInput!): Tour!
+  updateTour(updateTourInput: UpdateTourInput!): Tour!
+  removeTour(id: String!): Tour!
 }
 
 input LoginInput {
@@ -87,5 +105,20 @@ input UpdateTravelInput {
   description: String
   numberOfDays: Int
   moods: MoodsInput
+  id: String!
+}
+
+input CreateTourInput {
+  name: String!
+  startingDate: Timestamp!
+  endingDate: Timestamp!
+  price: Int!
+}
+
+input UpdateTourInput {
+  name: String
+  startingDate: Timestamp
+  endingDate: Timestamp
+  price: Int
   id: String!
 }

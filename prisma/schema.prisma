@@ -41,8 +41,8 @@ model Tour {
   id           String   @id @default(cuid())
   travelId     String
   name         String   @unique
-  startingDate DateTime
-  endingDate   DateTime
+  startingDate DateTime @db.Date
+  endingDate   DateTime @db.Date
   price        Int
 
   travel Travel @relation(fields: [travelId], references: [id])
