@@ -26,16 +26,6 @@ type Moods {
   party: Int!
 }
 
-type Travel {
-  id: String!
-  isPublic: Boolean!
-  slug: String!
-  name: String!
-  description: String!
-  numberOfDays: Int!
-  moods: Moods!
-}
-
 type Tour {
   id: String!
   name: String!
@@ -49,14 +39,30 @@ type Tour {
 """
 scalar Timestamp
 
+type Travel {
+  id: String!
+  isPublic: Boolean!
+  slug: String!
+  name: String!
+  description: String!
+  numberOfDays: Int!
+  moods: Moods!
+  tours: [Tour!]!
+}
+
 type Query {
   user(id: String!): User
   users: [User!]!
   me: User
-  travels: [Travel!]!
+  travels(findTravelsInput: FindTravelsInput): [Travel!]!
   travel(id: String!): Travel!
   tours: [Tour!]!
   tour(id: String!): Tour!
+}
+
+input FindTravelsInput {
+  skip: Int
+  take: Int
 }
 
 type Mutation {

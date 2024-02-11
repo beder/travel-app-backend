@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateTourInput } from './dto/create-tour.input';
 import { UpdateTourInput } from './dto/update-tour.input';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ToursService {
@@ -16,8 +17,22 @@ export class ToursService {
     });
   }
 
-  findAll() {
-    return `This action returns all tours`;
+  findAll(params: {
+    skip?: number;
+    take?: number;
+    cursor?: Prisma.TourWhereUniqueInput;
+    where?: Prisma.TourWhereInput;
+    orderBy?: Prisma.TourOrderByWithRelationInput;
+  }) {
+    const { skip, take, cursor, where, orderBy } = params;
+
+    return this.prisma.tour.findMany({
+      skip,
+      take,
+      cursor,
+      where,
+      orderBy,
+    });
   }
 
   findOne(id: string) {

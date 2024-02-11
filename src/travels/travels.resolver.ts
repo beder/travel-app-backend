@@ -3,6 +3,7 @@ import { TravelsService } from './travels.service';
 import { Travel } from './entities/travel.entity';
 import { CreateTravelInput } from './dto/create-travel.input';
 import { UpdateTravelInput } from './dto/update-travel.input';
+import { FindTravelsInput } from './dto/find-travels.input';
 
 @Resolver(() => Travel)
 export class TravelsResolver {
@@ -16,8 +17,11 @@ export class TravelsResolver {
   }
 
   @Query(() => [Travel], { name: 'travels' })
-  findAll() {
-    return this.travelsService.findAll();
+  findAll(
+    @Args('findTravelsInput', { nullable: true })
+    findTravelsInput: FindTravelsInput,
+  ) {
+    return this.travelsService.findAll(findTravelsInput);
   }
 
   @Query(() => Travel, { name: 'travel' })

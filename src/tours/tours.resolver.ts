@@ -18,7 +18,7 @@ export class ToursResolver {
 
   @Query(() => [Tour], { name: 'tours' })
   findAll() {
-    return this.toursService.findAll();
+    return this.toursService.findAll({});
   }
 
   @Query(() => Tour, { name: 'tour' })
