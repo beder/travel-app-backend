@@ -20,7 +20,7 @@ export class UsersService {
     return user?.password === password ? user : null;
   }
 
-  user(
+  findOne(
     userWhereUniqueInput: Prisma.UserWhereUniqueInput,
   ): Promise<User | null> {
     return this.prisma.user.findUnique({
@@ -47,7 +47,7 @@ export class UsersService {
     return user?.roles;
   }
 
-  users(params: {
+  findAll(params: {
     skip?: number;
     take?: number;
     cursor?: Prisma.UserWhereUniqueInput;
@@ -65,13 +65,13 @@ export class UsersService {
     });
   }
 
-  createUser(data: Prisma.UserCreateInput): Promise<User> {
+  create(data: Prisma.UserCreateInput): Promise<User> {
     return this.prisma.user.create({
       data,
     });
   }
 
-  updateUser(params: {
+  update(params: {
     where: Prisma.UserWhereUniqueInput;
     data: Prisma.UserUpdateInput;
   }): Promise<User> {
@@ -83,7 +83,7 @@ export class UsersService {
     });
   }
 
-  deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User> {
+  remove(where: Prisma.UserWhereUniqueInput): Promise<User> {
     return this.prisma.user.delete({
       where,
     });

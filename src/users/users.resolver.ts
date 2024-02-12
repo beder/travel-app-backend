@@ -21,19 +21,19 @@ export class UsersResolver {
   @Query(() => User, { name: 'user', nullable: true })
   @UseGuards(GqlAuthGuard)
   async getUser(@Args('id') id: string) {
-    return this.usersService.user({ id });
+    return this.usersService.findOne({ id });
   }
 
   @Query(() => [User], { name: 'users' })
   @UseGuards(GqlAuthGuard)
   async getUsers() {
-    return this.usersService.users({});
+    return this.usersService.findAll({});
   }
 
   @Query(() => User, { name: 'me', nullable: true })
   @UseGuards(GqlAuthGuard)
   async getCurrentUser(@CurrentUser() user: User) {
-    return this.usersService.user({ id: user.id });
+    return this.usersService.findOne({ id: user.id });
   }
 
   @ResolveField('roles', () => [Role])
@@ -47,7 +47,7 @@ export class UsersResolver {
   async createUser(@Args('input') input: CreateUserInput) {
     const roles = await this.usersService.roles({ name: { in: input.roles } });
 
-    return this.usersService.createUser({
+    return this.usersService.create({
       ...input,
       roles: { connect: roles },
     });
