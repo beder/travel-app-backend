@@ -4,10 +4,17 @@ import { Tour } from './entities/tour.entity';
 import { CreateTourInput } from './dto/create-tour.input';
 import { UpdateTourInput } from './dto/update-tour.input';
 import { FindToursInput } from './dto/find-tours.input';
+import { Prisma } from '@prisma/client';
 
 @Resolver(() => Tour)
 export class ToursResolver {
   constructor(private readonly toursService: ToursService) {}
+
+  private orderBy(attributeName: string, sortOrder?: string) {
+    return sortOrder
+      ? [{ [attributeName]: sortOrder as Prisma.SortOrder }]
+      : [];
+  }
 
   @Mutation(() => Tour)
   createTour(
@@ -26,7 +33,7 @@ export class ToursResolver {
       travelSlug: slug,
       priceFrom,
       priceTo,
-      sortByPriceAsc,
+      priceSortOrder,
       startingDate,
       endingDate,
       ...rest
@@ -35,9 +42,7 @@ export class ToursResolver {
     return this.toursService.findAll({
       ...rest,
       orderBy: [
-        ...(sortByPriceAsc === undefined
-          ? []
-          : [{ price: (sortByPriceAsc ? 'asc' : 'desc') as 'asc' | 'desc' }]),
+        ...this.orderBy('price', priceSortOrder),
         {
           startingDate: 'asc',
         },

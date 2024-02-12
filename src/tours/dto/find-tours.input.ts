@@ -1,4 +1,5 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
+import { SortOrderScalar } from 'src/graphql/scalars/sort-order.scalar';
 
 @InputType()
 export class FindToursInput {
@@ -20,8 +21,8 @@ export class FindToursInput {
   @Field(() => Int, { nullable: true })
   skip?: number;
 
-  @Field(() => Boolean, { nullable: true })
-  sortByPriceAsc?: boolean;
+  @Field(() => SortOrderScalar, { nullable: true })
+  priceSortOrder?: string;
 
   @Field(() => Int, { nullable: true })
   take?: number;

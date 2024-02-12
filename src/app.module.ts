@@ -8,6 +8,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { TravelsModule } from './travels/travels.module';
 import { ToursModule } from './tours/tours.module';
+import { SortOrderScalar } from 'src/graphql/scalars/sort-order.scalar';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ToursModule } from './tours/tours.module';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       buildSchemaOptions: { dateScalarMode: 'timestamp' },
+      resolvers: { SortOrder: SortOrderScalar },
     }),
     TravelsModule,
     ToursModule,

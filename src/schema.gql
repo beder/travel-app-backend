@@ -72,9 +72,12 @@ input FindToursInput {
   startingDate: Timestamp
   endingDate: Timestamp
   skip: Int
-  sortByPriceAsc: Boolean
+  priceSortOrder: SortOrder
   take: Int
 }
+
+"""Sort order"""
+scalar SortOrder
 
 type Mutation {
   login(input: LoginInput!): Session
