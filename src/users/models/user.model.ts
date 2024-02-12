@@ -9,7 +9,6 @@ export class User {
   @Field()
   email: string;
 
-  // eslint-disable-next-line prettier/prettier, @typescript-eslint/no-unused-vars
-  @Field((type) => [Role])
+  @Field(() => [Role])
   roles: Role[];
 }

@@ -23,46 +23,39 @@ class CreateUserInput {
   @Field({ nullable: false })
   password: string;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  @Field((type) => [String], { nullable: false })
+  @Field(() => [String], { nullable: false })
   roles: string[];
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-@Resolver((of) => User)
+@Resolver(() => User)
 export class UsersResolver {
   constructor(private usersService: UsersService) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  @Query((returns) => User, { name: 'user', nullable: true })
+  @Query(() => User, { name: 'user', nullable: true })
   @UseGuards(GqlAuthGuard)
   async getUser(@Args('id') id: string) {
     return this.usersService.user({ id });
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  @Query((returns) => [User], { name: 'users' })
+  @Query(() => [User], { name: 'users' })
   @UseGuards(GqlAuthGuard)
   async getUsers() {
     return this.usersService.users({});
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  @Query((returns) => User, { name: 'me', nullable: true })
+  @Query(() => User, { name: 'me', nullable: true })
   @UseGuards(GqlAuthGuard)
   async getCurrentUser(@CurrentUser() user: User) {
     return this.usersService.user({ id: user.id });
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  @ResolveField('roles', (returns) => [Role])
+  @ResolveField('roles', () => [Role])
   async getRoles(@Parent() user: User) {
     const { id } = user;
     return this.usersService.rolesByUser({ id });
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  @Mutation((returns) => User, { nullable: true })
+  @Mutation(() => User, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async createUser(@Args('input') input: CreateUserInput) {
     const roles = await this.usersService.roles({ name: { in: input.roles } });
