@@ -56,12 +56,23 @@ type Query {
   me: User
   travels(findTravelsInput: FindTravelsInput): [Travel!]!
   travel(id: String!): Travel!
-  tours: [Tour!]!
+  tours(findToursInput: FindToursInput): [Tour!]!
   tour(id: String!): Tour!
 }
 
 input FindTravelsInput {
   skip: Int
+  take: Int
+}
+
+input FindToursInput {
+  travelSlug: String!
+  priceFrom: Int
+  priceTo: Int
+  startingDate: Timestamp
+  endingDate: Timestamp
+  skip: Int
+  sortByPriceAsc: Boolean
   take: Int
 }
 

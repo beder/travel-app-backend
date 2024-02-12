@@ -22,7 +22,9 @@ export class ToursService {
     take?: number;
     cursor?: Prisma.TourWhereUniqueInput;
     where?: Prisma.TourWhereInput;
-    orderBy?: Prisma.TourOrderByWithRelationInput;
+    orderBy?:
+      | Prisma.TourOrderByWithRelationInput
+      | Prisma.TourOrderByWithRelationInput[];
   }) {
     const { skip, take, cursor, where, orderBy } = params;
 

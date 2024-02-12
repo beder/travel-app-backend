@@ -3,6 +3,7 @@ import { ToursService } from './tours.service';
 import { Tour } from './entities/tour.entity';
 import { CreateTourInput } from './dto/create-tour.input';
 import { UpdateTourInput } from './dto/update-tour.input';
+import { FindToursInput } from './dto/find-tours.input';
 
 @Resolver(() => Tour)
 export class ToursResolver {
@@ -17,8 +18,40 @@ export class ToursResolver {
   }
 
   @Query(() => [Tour], { name: 'tours' })
-  findAll() {
-    return this.toursService.findAll({});
+  findAll(
+    @Args('findToursInput', { nullable: true })
+    findToursInput: FindToursInput,
+  ) {
+    const {
+      travelSlug: slug,
+      priceFrom,
+      priceTo,
+      sortByPriceAsc,
+      startingDate,
+      endingDate,
+      ...rest
+    } = findToursInput;
+
+    return this.toursService.findAll({
+      ...rest,
+      orderBy: [
+        ...(sortByPriceAsc === undefined
+          ? []
+          : [{ price: (sortByPriceAsc ? 'asc' : 'desc') as 'asc' | 'desc' }]),
+        {
+          startingDate: 'asc',
+        },
+      ],
+      where: {
+        endingDate,
+        price: {
+          gte: priceFrom,
+          lte: priceTo,
+        },
+        startingDate,
+        travel: { slug },
+      },
+    });
   }
 
   @Query(() => Tour, { name: 'tour' })
