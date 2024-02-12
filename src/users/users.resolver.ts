@@ -1,31 +1,18 @@
 import {
   Args,
-  Field,
-  InputType,
   Mutation,
   Parent,
   Query,
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
-import { User } from './models/user.model';
+import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
-import { Role } from './models/role.model';
+import { Role } from './entities/role.entity';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from 'src/auth/guards/gql-auth.guard';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
-
-@InputType()
-class CreateUserInput {
-  @Field({ nullable: false })
-  email: string;
-
-  @Field({ nullable: false })
-  password: string;
-
-  @Field(() => [String], { nullable: false })
-  roles: string[];
-}
+import { CreateUserInput } from './dto/create-user.input';
 
 @Resolver(() => User)
 export class UsersResolver {
