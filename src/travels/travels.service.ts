@@ -57,9 +57,9 @@ export class TravelsService {
     });
   }
 
-  remove(id: string) {
+  remove(slug: string) {
     return this.prisma.travel.delete({
-      where: { id },
+      where: { slug },
     });
   }
 }

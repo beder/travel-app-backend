@@ -37,7 +37,7 @@ export class TravelsResolver {
   }
 
   @Mutation(() => Travel)
-  removeTravel(@Args('id', { type: () => String }) id: string) {
-    return this.travelsService.remove(id);
+  deleteTravel(@Args('slug', { type: () => String }) slug: string) {
+    return this.travelsService.remove(slug);
   }
 }
