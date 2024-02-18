@@ -85,7 +85,7 @@ type Mutation {
   createTravel(createTravelInput: CreateTravelInput!): Travel!
   updateTravel(updateTravelInput: UpdateTravelInput!): Travel!
   removeTravel(id: String!): Travel!
-  createTour(travelId: String!, createTourInput: CreateTourInput!): Tour!
+  createTour(travelSlug: String!, createTourInput: CreateTourInput!): Tour!
   updateTour(updateTourInput: UpdateTourInput!): Tour!
   removeTour(id: String!): Tour!
 }

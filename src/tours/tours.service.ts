@@ -8,11 +8,11 @@ import { Prisma } from '@prisma/client';
 export class ToursService {
   constructor(private prisma: PrismaService) {}
 
-  create(travelId: string, createTourInput: CreateTourInput) {
+  create(travelSlug: string, createTourInput: CreateTourInput) {
     return this.prisma.tour.create({
       data: {
         ...createTourInput,
-        travel: { connect: { id: travelId } },
+        travel: { connect: { slug: travelSlug } },
       },
     });
   }

@@ -18,10 +18,10 @@ export class ToursResolver {
 
   @Mutation(() => Tour)
   createTour(
-    @Args('travelId', { type: () => String }) travelId: string,
+    @Args('travelSlug', { type: () => String }) travelSlug: string,
     @Args('createTourInput') createTourInput: CreateTourInput,
   ) {
-    return this.toursService.create(travelId, createTourInput);
+    return this.toursService.create(travelSlug, createTourInput);
   }
 
   @Query(() => [Tour], { name: 'tours' })
