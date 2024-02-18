@@ -50,19 +50,31 @@ type Travel {
   tours: [Tour!]!
 }
 
+type Meta {
+  page: Int!
+  pageSize: Int!
+  totalPages: Int!
+  totalResults: Int!
+}
+
+type TravelList {
+  meta: Meta!
+  items: [Travel!]!
+}
+
 type Query {
   user(id: String!): User
   users: [User!]!
   me: User
-  travels(findTravelsInput: FindTravelsInput): [Travel!]!
+  travels(findTravelsInput: FindTravelsInput): TravelList!
   travel(id: String!): Travel!
   tours(findToursInput: FindToursInput): [Tour!]!
   tour(id: String!): Tour!
 }
 
 input FindTravelsInput {
-  skip: Int
-  take: Int
+  page: Int
+  pageSize: Int
 }
 
 input FindToursInput {

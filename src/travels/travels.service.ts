@@ -19,17 +19,17 @@ export class TravelsService {
     });
   }
 
-  findAll(params: {
-    skip?: number;
-    take?: number;
+  async findAll(params: {
+    page?: number;
+    pageSize?: number;
     cursor?: Prisma.TravelWhereUniqueInput;
     where?: Prisma.TravelWhereInput;
     orderBy?: Prisma.TravelOrderByWithRelationInput;
   }) {
-    const { skip, take, cursor, where, orderBy } = params;
+    const { page = 1, pageSize: take = 10, cursor, where, orderBy } = params;
 
-    return this.prisma.travel.findMany({
-      skip,
+    const query = {
+      skip: (page - 1) * take,
       take,
       cursor,
       orderBy,
@@ -38,7 +38,22 @@ export class TravelsService {
         ...where,
         isPublic: true,
       },
-    });
+    };
+
+    const [items, count] = await Promise.all([
+      this.prisma.travel.findMany(query),
+      this.prisma.travel.count({ where: query.where }),
+    ]);
+
+    return {
+      items,
+      meta: {
+        page,
+        pageSize: take,
+        totalPages: Math.ceil(count / take),
+        totalResults: count,
+      },
+    };
   }
 
   findOne(id: string) {
