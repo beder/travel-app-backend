@@ -71,6 +71,8 @@ docker compose run --rm server npx prisma db seed
 docker compose up
 ```
 
+💡 The server is now running at http://localhost:4000/graphql
+
 ## Resetting the database
 
 If you need to start fresh by erasing all indexed data, execute the following command.
