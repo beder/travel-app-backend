@@ -34,10 +34,7 @@ export class TravelsService {
       cursor,
       orderBy,
       include: { tours: true },
-      where: {
-        ...where,
-        isPublic: true,
-      },
+      where,
     };
 
     const [items, count] = await Promise.all([

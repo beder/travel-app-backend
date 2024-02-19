@@ -66,6 +66,7 @@ type Query {
   user(id: String!): User
   users: [User!]!
   me: User
+  publishedTravels(findTravelsInput: FindTravelsInput): TravelList!
   travels(findTravelsInput: FindTravelsInput): TravelList!
   travel(id: String!): Travel!
   tours(findToursInput: FindToursInput): [Tour!]!

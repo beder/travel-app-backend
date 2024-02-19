@@ -24,7 +24,20 @@ export class TravelsResolver {
     return this.travelsService.create(createTravelInput);
   }
 
+  @Query(() => TravelList, { name: 'publishedTravels' })
+  findAllPublic(
+    @Args('findTravelsInput', { nullable: true })
+    findTravelsInput: FindTravelsInput,
+  ) {
+    return this.travelsService.findAll({
+      ...findTravelsInput,
+      where: { isPublic: true },
+    });
+  }
+
   @Query(() => TravelList, { name: 'travels' })
+  @Roles(RoleEnum.Admin, RoleEnum.Editor)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   findAll(
     @Args('findTravelsInput', { nullable: true })
     findTravelsInput: FindTravelsInput,
