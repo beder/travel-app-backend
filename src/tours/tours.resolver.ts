@@ -5,6 +5,11 @@ import { CreateTourInput } from './dto/create-tour.input';
 import { UpdateTourInput } from './dto/update-tour.input';
 import { FindToursInput } from './dto/find-tours.input';
 import { Prisma } from '@prisma/client';
+import { UseGuards } from '@nestjs/common';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { GqlAuthGuard } from 'src/auth/guards/gql-auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Role as RoleEnum } from 'src/auth/enums/role.enum';
 
 @Resolver(() => Tour)
 export class ToursResolver {
@@ -17,6 +22,8 @@ export class ToursResolver {
   }
 
   @Mutation(() => Tour)
+  @Roles(RoleEnum.Admin)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   createTour(
     @Args('travelSlug', { type: () => String }) travelSlug: string,
     @Args('createTourInput') createTourInput: CreateTourInput,
@@ -65,6 +72,8 @@ export class ToursResolver {
   }
 
   @Mutation(() => Tour)
+  @Roles(RoleEnum.Admin, RoleEnum.Editor)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   updateTour(@Args('updateTourInput') updateTourInput: UpdateTourInput) {
     return this.toursService.update(updateTourInput.id, updateTourInput);
   }

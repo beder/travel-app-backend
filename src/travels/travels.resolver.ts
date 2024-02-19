@@ -5,12 +5,19 @@ import { CreateTravelInput } from './dto/create-travel.input';
 import { UpdateTravelInput } from './dto/update-travel.input';
 import { FindTravelsInput } from './dto/find-travels.input';
 import { TravelList } from './entities/travel-list.entity';
+import { UseGuards } from '@nestjs/common';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { GqlAuthGuard } from 'src/auth/guards/gql-auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Role as RoleEnum } from 'src/auth/enums/role.enum';
 
 @Resolver(() => Travel)
 export class TravelsResolver {
   constructor(private readonly travelsService: TravelsService) {}
 
   @Mutation(() => Travel)
+  @Roles(RoleEnum.Admin)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   createTravel(
     @Args('createTravelInput') createTravelInput: CreateTravelInput,
   ) {
@@ -38,6 +45,8 @@ export class TravelsResolver {
   }
 
   @Mutation(() => Travel)
+  @Roles(RoleEnum.Admin)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   deleteTravel(@Args('slug', { type: () => String }) slug: string) {
     return this.travelsService.remove(slug);
   }
