@@ -6,16 +6,17 @@ import { User, Prisma, Role } from '@prisma/client';
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  async userForAuth(
-    userWhereUniqueInput: Prisma.UserWhereUniqueInput,
-  ): Promise<User | null> {
+  async userForAuth(userWhereUniqueInput: Prisma.UserWhereUniqueInput) {
     const { password, ...where } = userWhereUniqueInput;
 
     if (!password?.toString().length) {
       return null;
     }
 
-    const user = await this.prisma.user.findUnique({ where });
+    const user = await this.prisma.user.findUnique({
+      where,
+      include: { roles: true },
+    });
 
     return user?.password === password ? user : null;
   }

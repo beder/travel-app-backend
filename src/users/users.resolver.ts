@@ -11,8 +11,11 @@ import { UsersService } from './users.service';
 import { Role } from './entities/role.entity';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from 'src/auth/guards/gql-auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { CreateUserInput } from './dto/create-user.input';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { Role as RoleEnum } from 'src/auth/enums/role.enum';
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -43,7 +46,8 @@ export class UsersResolver {
   }
 
   @Mutation(() => User, { nullable: true })
-  @UseGuards(GqlAuthGuard)
+  @Roles(RoleEnum.Admin)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   async createUser(@Args('input') input: CreateUserInput) {
     const roles = await this.usersService.roles({ name: { in: input.roles } });
 
