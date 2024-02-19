@@ -1,6 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Moods } from './moods.entity';
-import { Tour } from 'src/tours/entities/tour.entity';
+import { Tour } from '../../tours/entities/tour.entity';
 
 @ObjectType()
 export class Travel {

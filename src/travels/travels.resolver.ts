@@ -6,10 +6,10 @@ import { UpdateTravelInput } from './dto/update-travel.input';
 import { FindTravelsInput } from './dto/find-travels.input';
 import { TravelList } from './entities/travel-list.entity';
 import { UseGuards } from '@nestjs/common';
-import { Roles } from 'src/auth/decorators/roles.decorator';
-import { GqlAuthGuard } from 'src/auth/guards/gql-auth.guard';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
-import { Role as RoleEnum } from 'src/auth/enums/role.enum';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { Role as RoleEnum } from '../auth/enums/role.enum';
 
 @Resolver(() => Travel)
 export class TravelsResolver {

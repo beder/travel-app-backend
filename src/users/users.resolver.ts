@@ -10,12 +10,12 @@ import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 import { Role } from './entities/role.entity';
 import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from 'src/auth/guards/gql-auth.guard';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
-import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
+import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { CreateUserInput } from './dto/create-user.input';
-import { Roles } from 'src/auth/decorators/roles.decorator';
-import { Role as RoleEnum } from 'src/auth/enums/role.enum';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { Role as RoleEnum } from '../auth/enums/role.enum';
 
 @Resolver(() => User)
 export class UsersResolver {

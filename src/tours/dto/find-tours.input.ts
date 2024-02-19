@@ -1,5 +1,5 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
-import { SortOrderScalar } from 'src/graphql/scalars/sort-order.scalar';
+import { SortOrderScalar } from '../../graphql/scalars/sort-order.scalar';
 
 @InputType()
 export class FindToursInput {

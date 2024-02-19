@@ -8,7 +8,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { TravelsModule } from './travels/travels.module';
 import { ToursModule } from './tours/tours.module';
-import { SortOrderScalar } from 'src/graphql/scalars/sort-order.scalar';
+import { SortOrderScalar } from './graphql/scalars/sort-order.scalar';
 
 @Module({
   imports: [
