@@ -7,6 +7,9 @@ This repository contains the GraphQL API for a travel management application. Th
 ## Table of Contents
 
 - [Installation](#installation)
+- [How to run](#how-to-run)
+- [Resetting the database](#resetting-the-database)
+- [Frontend Repository](#frontend-repository)
 - [Usage](#usage)
 
 ## Installation
@@ -25,7 +28,7 @@ git clone git@github.com:beder/travel-app-backend.git
 cd travel-app-backend
 ```
 
-3. Create a copy of the `.env.example` file in the root directory and rename it to `.env`
+3. Copy the `.env.example` file in the root directory to create the `.env` file
 
 ```bash
 cp .env.example .env
@@ -80,6 +83,10 @@ If you need to start fresh by erasing all indexed data, execute the following co
 ```bash
 docker compose run --rm server npx prisma db push --force-reset
 ```
+
+## Frontend Repository
+
+The frontend app for the Travel App GraphQL API is hosted in a separate repository. You can find it [here](https://github.com/beder/travel-app-frontend).
 
 ## Usage
 
