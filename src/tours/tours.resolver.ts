@@ -61,7 +61,7 @@ export class ToursResolver {
           lte: priceTo,
         },
         startingDate,
-        travel: { slug },
+        travel: { slug, isPublic: true },
       },
     });
   }
