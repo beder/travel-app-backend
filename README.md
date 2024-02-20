@@ -62,7 +62,7 @@ docker compose run --rm server npx prisma db push
 
 8. Seed the database
 
-💡 Review the prisma/seed.ts file to discover the data being seeded into the database. This file contains information about the test users.
+💡 Review the [prisma/seed.ts](prisma/seed.ts#L6-L25) file to discover the data being seeded into the database. This file contains information about the test users.
 
 ```bash
 docker compose run --rm server npx prisma db seed
@@ -78,7 +78,7 @@ docker compose up
 
 ## Resetting the database
 
-If you need to start fresh by erasing all indexed data, execute the following command.
+If you need to start fresh by erasing all data, execute the following command.
 
 ```bash
 docker compose run --rm server npx prisma db push --force-reset
